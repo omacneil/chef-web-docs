@@ -839,32 +839,6 @@ This argument has the following options:
 ``--cert-path PATH``
    The path to the location of the SSL certificate.
 
-``-d DISTRO``, ``--distro DISTRO``
-   .. tag knife_bootstrap_distro
-
-   The template file to be used during a bootstrap operation. The following distributions are supported:
-
-   * ``chef-full`` (the default bootstrap)
-   * ``centos5-gems``
-   * ``fedora13-gems``
-   * ``ubuntu10.04-gems``
-   * ``ubuntu10.04-apt``
-   * ``ubuntu12.04-gems``
-   * The name of a custom bootstrap template file.
-
-   When this option is used, knife searches for the template file in the following order:
-
-   #. The ``bootstrap/`` folder in the current working directory
-   #. The ``bootstrap/`` folder in the chef-repo
-   #. The ``bootstrap/`` folder in the ``~/.chef/`` directory
-   #. A default bootstrap file.
-
-   Do not use the ``--template-file`` option when ``--distro`` is specified.
-
-   .. end_tag
-
-   Deprecated in Chef Client 12.0,
-
 ``-H HOST_NAME``, ``--azure_host_name HOST_NAME``
    The host name for the virtual machine.
 
@@ -4199,27 +4173,27 @@ The full syntax for all of the properties that are available to the **windows_pa
 
 .. code-block:: ruby
 
-   windows_package 'name' do
-     checksum                   String
-     installer_type             Symbol
-     notifies                   # see description
-     options                    String
-     package_name               String, Array
-     remote_file_attributes     Hash
-     returns                    Integer, Array of integers
-     source                     String # defaults to 'name' if not specified
-     subscribes                 # see description
-     timeout                    String, Integer
-     version                    String, Array
-     action                     Symbol # defaults to :install if not specified
-   end
+  windows_package 'name' do
+    checksum                     String
+    installer_type               Symbol
+    options                      String
+    package_name                 String, Array
+    remote_file_attributes       Hash
+    response_file                String
+    response_file_variables      Hash
+    returns                      String, Integer, Array # default value: [0]
+    source                       String
+    timeout                      String, Integer # default value: 600
+    version                      String, Array
+    action                       Symbol # defaults to :install if not specified
+  end
 
 where:
 
 * ``windows_package`` is the resource.
-* ``'name'`` is the name of the package
-* ``action`` identifies which steps the chef-client will take to bring the node into the desired state
-* ``checksum``, ``installer_type``, ``options``, ``package_name``, ``remote_file_attributes``, ``returns``, ``source``, and ``timeout`` are properties of this resource, with the Ruby type shown. See "Properties" section below for more information about all of the properties that may be used with this resource.
+* ``name`` is the name given to the resource block.
+* ``action`` identifies which steps the chef-client will take to bring the node into the desired state.
+* ``checksum``, ``installer_type``, ``options``, ``package_name``, ``remote_file_attributes``, ``response_file``, ``response_file_variables``, ``returns``, ``source``, ``timeout``, and ``version`` are the properties available to this resource.
 
 .. end_tag
 
